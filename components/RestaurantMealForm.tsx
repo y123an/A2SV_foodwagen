@@ -57,7 +57,6 @@ export function RestaurantMealForm({
 
   return (
     <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-4">
-      {/* Food Name */}
       <div>
         <Input
           id="food_name"
@@ -84,7 +83,6 @@ export function RestaurantMealForm({
           </p>
         )}
       </div>
-      {/* Food Image Link */}
       <div>
         <Input
           id="food_image"
@@ -97,7 +95,6 @@ export function RestaurantMealForm({
           </p>
         )}
       </div>
-      {/* Restaurant Name */}
       <div>
         <Input
           id="restaurant_name"
@@ -110,7 +107,6 @@ export function RestaurantMealForm({
           </p>
         )}
       </div>
-      {/* Restaurant Image URL */}
       <div>
         <Input
           id="restaurant_image"
@@ -123,7 +119,6 @@ export function RestaurantMealForm({
           </p>
         )}
       </div>
-      {/* Status */}
       <div>
         <select
           id="restaurant_status"
@@ -143,7 +138,7 @@ export function RestaurantMealForm({
         <Button type="button" variant="secondary" onClick={onCancel}>
           Cancel
         </Button>
-        <Button type="submit">Add</Button>
+        <Button type="submit">{initialData ? "Save" : "Add"}</Button>
       </div>
     </form>
   );
