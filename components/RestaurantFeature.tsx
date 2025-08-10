@@ -42,6 +42,7 @@ export default function Feature({ meals }: FeatureProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMeal, setSelectedMeal] = useState<Meal | null>(null);
   const [notification, setNotification] = useState<string | null>(null);
+  const [mealList, setMealList] = useState<Meal[]>(meals);
 
   const handleMoreClick = (id: string) => {
     setPopoverOpenId(popoverOpenId === id ? null : id);
@@ -51,8 +52,11 @@ export default function Feature({ meals }: FeatureProps) {
     setIsModalOpen(true);
     setPopoverOpenId(null);
   };
-  const handleDelete = (meal: Meal) => {
+  const handleDelete = async (meal: Meal) => {
+    await fetchApi(`${API_URL}/${meal.id}`, { method: "DELETE" });
+    setMealList((prev) => prev.filter((m) => m.id !== meal.id));
     setPopoverOpenId(null);
+    setNotification("Meal deleted successfully");
   };
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -83,7 +87,7 @@ export default function Feature({ meals }: FeatureProps) {
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-8">Featured Meals</h2>
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {meals?.map((meal) => (
+          {mealList.map((meal) => (
             <Card
               key={meal.id}
               className="relative overflow-hidden rounded-lg shadow-md"
